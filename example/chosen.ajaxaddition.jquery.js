@@ -113,7 +113,18 @@
 				if ($.isArray(items)) {
 					//array of kv pairs [{id:'', text:''}...]
 					$.each(items, function (i, opt) {
-						if (typeof valuesHash[opt.id] === 'undefined') {
+						if (typeof valuesHash[opt.id] === 'undefined' && typeof valuesHash[opt.Custom]==='undefined') {
+							var CustomAttr='';
+							if(opt.Custom!=undefined){
+								var CustomData=opt.Custom;
+								$.each(CustomData, function(key, value){
+									CustomAttr+=key + "=" +value+" ";
+									//console.log(key + ": " + value);
+								});
+							}
+							$('<option value="' + opt.id + '"'+ CustomAttr+'>' + opt.text + '</option>').appendTo(select);
+						}
+						else if(typeof valuesHash[opt.id] === 'undefined'){
 							$('<option value="' + opt.id + '">' + opt.text + '</option>').appendTo(select);
 						}
 					});

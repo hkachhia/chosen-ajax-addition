@@ -58,9 +58,16 @@ $states = array(
 );
 
 $results = array();
+$custom_attribute =array("data-first"=>"custome1","data-sec"=>"custom_two","data-third"=>"Custom-three");
 foreach($states as $i => $state){
 	if( stripos($state,$q) === 0 ){
-		$results[] = array('id' => $i, 'text' => $state);
+		if(isset($custom_attribute)){
+			$results[] = array('id' => $i, 'text' => $state,"Custom"=>$custom_attribute);
+		}else {
+			$results[] = array('id' => $i, 'text' => $state);
+		}
 	}
 }
+
 echo json_encode(array('q' => $q, 'results' => $results));
+?>
